@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Survey GHL Embed</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #f9f9f9;
+    }
+
+    iframe {
+      width: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Survey embed -->
+  <iframe 
+    src="https://api.leadconnectorhq.com/widget/survey/dX4uQdUsi8SQUUTATK43"
+    scrolling="no"
+    id="survey-frame"
+    title="CANDIDATURA">
+  </iframe>
+
+  <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+
+  <script>
+    const iframe = document.getElementById("survey-frame");
+
+    // Imposta altezza responsive dell'iframe ogni volta che cambia
+    function resizeIframe() {
+      if (iframe && iframe.contentWindow) {
+        try {
+          const newHeight = iframe.contentWindow.document.body.scrollHeight;
+          if (newHeight && newHeight !== iframe.offsetHeight) {
+            iframe.style.height = newHeight + "px";
+          }
+        } catch (e) {
+          // CORS block, expected
+        }
+      }
+    }
+
+    // Workaround: monitora cambi visivi per forzare reset zoom
+    let lastHeight = 0;
+    setInterval(() => {
+      const newHeight = iframe.offsetHeight;
+      if (newHeight !== lastHeight) {
+        lastHeight = newHeight;
+
+        // Forza zoom reset e scroll
+        document.body.style.zoom = "1";
+        document.body.style.transform = "scale(1)";
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
+    }, 600);
+  </script>
+
+</body>
+</html>
